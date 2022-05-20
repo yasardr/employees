@@ -1,8 +1,20 @@
 import React from 'react';
+import { BrowserRouter as Router,
+         Routes,
+         Route } from "react-router-dom";
+import NavBar from './components/NavBar';
+import MainPage from './pages/MainPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const AppRouter = () => {
     return (
-        <h2>AppRouter</h2>
+        <Router>
+            <NavBar />
+            <Routes>
+                <Route path='/' element={<MainPage />} />
+                <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+        </Router>
     )
 }
 
