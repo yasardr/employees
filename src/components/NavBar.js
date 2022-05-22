@@ -1,7 +1,19 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext';
+import { types } from "../types/types";
 
 const NavBar = () => {
+  const { user: {name}, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({
+      type: types.logout
+    });
+    navigate('/');
+  }
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
@@ -10,10 +22,19 @@ const NavBar = () => {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
-                <NavLink activeclassname="active" to="/" className="nav-link">Principal</NavLink>
-                <NavLink activeclassname="active" to="/login" className="nav-link">Login</NavLink>
-            </div>
+              <div className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <NavLink activeclassname="active" to="/" className="nav-link">Home</NavLink>
+                  <NavLink activeclassname="active" to="/employees" className="nav-link">Employees</NavLink>
+                  <NavLink activeclassname="active" to="/login" className="nav-link">Login</NavLink>
+              </div>
+              <ul className='navbar-nav ml-auto'>
+                <li className='nav-item nav-link text-info'>
+                  <span>{ name }</span>
+                </li>
+                <button 
+                    className="nav-item nav-link btn"
+                    onClick={ handleLogout }>Logout</button>
+              </ul>
             </div>
         </div>
     </nav>
