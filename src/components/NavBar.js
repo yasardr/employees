@@ -25,6 +25,7 @@ const NavBar = () => {
               <div className="navbar-nav me-auto mb-2 mb-lg-0">
                   <NavLink activeclassname="active" to="/" className="nav-link">Home</NavLink>
                   <NavLink activeclassname="active" to="/employees" className="nav-link">Employees</NavLink>
+                  <NavLink activeclassname="active" to="/upload" className="nav-link">Upload</NavLink>
                   <NavLink activeclassname="active" to="/login" className="nav-link">Login</NavLink>
               </div>
               <ul className='navbar-nav ml-auto'>
