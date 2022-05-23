@@ -30,6 +30,7 @@ const columns = [
   }
 ];
 
+// Componente que representa el search del datatable
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
   <div className='row'>
     <div className='col-auto'>
@@ -58,6 +59,8 @@ const EmployeesPage = ({isAuthenticate}) => {
   const [pending, setPending] = React.useState(true);
   const [updateEmployees, setUpdateEmployees] = React.useState(false);
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+
+  //Filtra la data por nombre y appelido
   const filteredItems = employees.filter(
     (item) => {
       return ( item.name && item.name.toLowerCase().includes(filterText.toLowerCase()) ) ||
@@ -65,6 +68,7 @@ const EmployeesPage = ({isAuthenticate}) => {
     }
   );
 
+  // Construcción del search
   const subHeaderComponentMemo = useMemo(() => {
     const handleClear = () => {
       if (filterText) {
@@ -84,8 +88,10 @@ const EmployeesPage = ({isAuthenticate}) => {
     
   useEffect(() => {
       if (!isAuthenticate) {
+          // Redirreccionar si no esta logeado
           navigate('/');
       } else {
+        //Obtener los employees y transformarlos
         const result = getEmployees();
         result.then(({data}) => {
           const list = data.employees.map(employee => {
@@ -113,6 +119,7 @@ const EmployeesPage = ({isAuthenticate}) => {
       }
   }, [updateEmployees]);
 
+  // Función que guarda un nuevo empleado
   const handleSubmit = () => {
     Swal.fire({
       title: 'Saving...',
@@ -145,12 +152,14 @@ const EmployeesPage = ({isAuthenticate}) => {
     });
   }
 
+  //Limpia el form de nuevo empleado
   const cleanForm = (name, lastname, birthday) => {
     name.value = '';
     lastname.value = '';
     birthday.value = '0000-00-00';
   }
 
+  // Muestra u oculta el fomrulario para agregar un empleado
   const handleAddEmployee = cancel => {
     const form = document.getElementById('section-form');
     const add = document.getElementById('btn-add');

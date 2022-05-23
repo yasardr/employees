@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext';
+import { users } from '../data/users';
 import { types } from '../types/types';
 
 const LoginPage = () => {
@@ -10,20 +11,21 @@ const LoginPage = () => {
 
     // Realiza el proceso de validación de Login
     const handleLogin = () => {
-        const username = document.getElementById('username');
-        const password = document.getElementById('password');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const user = users.filter(user => user.username === username && user.password === password);
 
-        if (username.value && password.value) {
+        if (user.length > 0) {
             dispatch({ 
                 type: types.login, 
                 payload: {
-                    name: username.value
+                    name: username
                 }
             });
             navigate('/employees');
         } else {
             setLogin(false);
-        } 
+        }
     }
 
     const handleBlock = e => {
@@ -46,19 +48,19 @@ const LoginPage = () => {
                             :   
                                 <></>
                         }
-                        <form>
+                        <form onSubmit={handleLogin}>
                             <div className="mb-3">
                                 <label className="form-label">User</label>
-                                <input type="text" onPaste={handleBlock} onCopy={handleBlock} className="form-control" id="username" />
+                                <input type="text" onPaste={handleBlock} onCopy={handleBlock} className="form-control" id="username" required />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Password</label>
-                                <input type="password" onPaste={handleBlock} onCopy={handleBlock} className="form-control" id="password" />
+                                <input type="password" onPaste={handleBlock} onCopy={handleBlock} className="form-control" id="password" required />
                             </div>
                             <div className='d-flex justify-content-end'>
                                 <button
-                                    className='btn btn-primary'
-                                    onClick={handleLogin}>
+                                    type='submit'
+                                    className='btn btn-primary'>
                                     Login
                                 </button>
                             </div>

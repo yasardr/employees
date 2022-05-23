@@ -7,6 +7,7 @@ import NavBar from '../components/NavBar';
 import EmployeesPage from '../pages/EmployeesPage';
 import LoginPage from '../pages/LoginPage';
 import MainPage from '../pages/MainPage';
+import UploadPage from '../pages/UploadPage';
 
 const AppRouter = () => {
     const {user} = useContext(AuthContext);
@@ -20,6 +21,10 @@ const AppRouter = () => {
                     <Route 
                         path='/employees' 
                         element={<EmployeesPage isAuthenticate={user.logged} />} 
+                    />
+                    <Route 
+                        path='/upload' 
+                        element={<UploadPage isAuthenticate={user.logged} />} 
                     />
                     <Route path='/login' element={<LoginPage />} />
                     <Route 
